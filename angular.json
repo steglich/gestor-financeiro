@@ -46,12 +46,12 @@
               "src/assets"
             ],
             "styles": [
-              // "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              // "node_modeules/toastr/build/toastr.min.css",
-              // "node_modeules/primeicons/primeicons.css",
-              // "node_modeules/primeng/resources/themes/nova-light/tjhemes.css",
-              // "node_modeules/primeng/resources/primeng.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/toastr/build/toastr.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
