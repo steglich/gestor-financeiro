@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { CategoriesModule } from '../categories.module';
 import { CategoryService } from '../shared/category.service';
 
 import { switchMap } from 'rxjs/operators';
@@ -16,8 +17,7 @@ import toastr from 'toastr';
 export class CategoryFormComponent implements OnInit {
 
   private currentAction: string;
-  private serverErrorMessages: string[] = null;
-  pageTitle = ``;
+  pageTitle: string;
   categoryForm: FormGroup;
   submittingForm: boolean;
 
@@ -58,8 +58,28 @@ export class CategoryFormComponent implements OnInit {
         switchMap(params => this.categorySevice.getById(+params.get(`id`)))
       ).subscribe(category => {
         this.categoryForm.patchValue(category);
-      }, () => alert(`Ocorreu erro tente mais tarde!`));
+      }, () => this.actionsMessage(`error`, `Ocorreu erro tente mais tarde!`));
     }
+  }
+
+  submitForm() {
+    this.submittingForm = true;
+    this.currentAction === `new` ? this.sendCategory(`create`) : this.sendCategory(`update`);
+  }
+
+  private sendCategory(send) {
+    const params = Object.assign(new CategoriesModule(), this.categoryForm.value);
+    this.categorySevice[send](params).subscribe(() => {
+      this.actionsMessage(`success`, `Categoria salva com sucesso!`);
+      this.router.navigateByUrl(`/categories`);
+    }, () => {
+      this.actionsMessage(`error`, `Erro ao salvar categoria!`);
+      this.submittingForm = false;
+    });
+  }
+
+  private actionsMessage(alert, message) {
+    toastr[alert](message);
   }
 
 }

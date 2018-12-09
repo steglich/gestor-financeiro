@@ -7,7 +7,7 @@
       <a routerLink="/categories">Categorias</a>
     </li>
     <li class="breadcrumb-item active">
-      Formulário de Categora
+      {{pageTitle}}
     </li>
   </ol>
 </nav>
@@ -32,14 +32,22 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="name">Nome</label>
-          <input type="text" class="form-control"  id="name" formControlName="name">
+          <input type="text" class="form-control" formControlName="name">
+          <div class="text-danger" *ngIf="categoryForm.controls['name'].touched">
+            <span *ngIf="categoryForm.controls['name'].hasError('required')">Campo Obrigatório.</span>
+            <span *ngIf="categoryForm.controls['name'].hasError('minlength') && !categoryForm.controls['name'].hasError('required')">Deve conter no mínimo 4 caracteres.</span>
+          </div>
         </div>
         <div class="form-group col-md-8">
           <label for="description">Descrição</label>
-          <input type="text" class="form-control" id="description" formControlName="description">
+          <input type="text" class="form-control" formControlName="description">
+          <div class="text-danger" *ngIf="categoryForm.controls['description'].touched">
+            <span *ngIf="categoryForm.controls['description'].hasError('required')">Campo Obrigatório.</span>
+            <span *ngIf="categoryForm.controls['description'].hasError('minlength')">Deve conter no mínimo 4 caracteres.</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary btn-lg float-right mt-3">Salvar</button>
+  <button type="submit" class="btn btn-primary btn-lg float-right mt-3" [disabled]="categoryForm.invalid || submittingForm" (click)="submitForm()">Salvar</button>
 </form>
