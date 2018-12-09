@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, flatMap } from 'rxjs/operators';
 
-import { Category } from './category.model';
+import { CategoryModule } from './category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +17,14 @@ export class CategoryService {
     private http: HttpClient
   ) { }
 
-  getAll(): Observable<Category[]> {
+  getAll(): Observable<CategoryModule[]> {
     return this.http.get(this.apiPath).pipe(
       catchError(this.handError),
       map(this.jsonDataToCategories)
     );
   }
 
-  getByCategory(id: number): Observable<Category> {
+  getByCategory(id: number): Observable<CategoryModule> {
     const url = `${this.apiPath}/${id}`;
     return this.http.get(url).pipe(
       catchError(this.handError),
@@ -32,14 +32,14 @@ export class CategoryService {
     );
   }
 
-  create(category: Category): Observable<Category> {
+  create(category: CategoryModule): Observable<CategoryModule> {
     return this.http.post(this.apiPath, category).pipe(
       catchError(this.handError),
       map(this.jsonDataToCategory)
     );
   }
 
-  update(category: Category): Observable<Category> {
+  update(category: CategoryModule): Observable<CategoryModule> {
     const url = `${this.apiPath}/${category['id']}`;
     return this.http.put(url, category).pipe(
       catchError(this.handError),
@@ -47,7 +47,7 @@ export class CategoryService {
     );
   }
 
-  delete(id: number): Observable<Category> {
+  delete(id: number): Observable<CategoryModule> {
     const url = `${this.apiPath}/${id}`;
     return this.http.delete(url).pipe(
       catchError(this.handError),
@@ -55,14 +55,14 @@ export class CategoryService {
     );
   }
 
-  private jsonDataToCategories(jsonData: Category[]): Category[] {
-    const categories: Category[] = [];
-    jsonData.forEach(element => categories.push(element as Category));
+  private jsonDataToCategories(jsonData: CategoryModule[]): CategoryModule[] {
+    const categories: CategoryModule[] = [];
+    jsonData.forEach(element => categories.push(element as CategoryModule));
     return categories;
   }
 
-  private jsonDataToCategory(jsonData: Category): Category {
-    return jsonData as Category;
+  private jsonDataToCategory(jsonData: CategoryModule): CategoryModule {
+    return jsonData as CategoryModule;
   }
 
   private handError(error: any[]): Observable<any> {

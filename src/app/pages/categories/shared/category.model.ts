@@ -1,4 +1,4 @@
-export class Category {
+export class CategoryModule {
   constructor(
     id?: number,
     name?: string,
