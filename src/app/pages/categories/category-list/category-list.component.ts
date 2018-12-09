@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CategoryModule } from '../shared/category.model';
+import { CategoryModel } from '../shared/category.model';
 import { CategoryService } from '../shared/category.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { CategoryService } from '../shared/category.service';
 })
 export class CategoryListComponent implements OnInit {
 
-  categories: CategoryModule[] = [];
+  categories: CategoryModel[] = [];
 
   constructor(private categoryService: CategoryService) { }
 
