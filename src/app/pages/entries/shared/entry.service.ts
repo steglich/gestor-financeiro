@@ -11,7 +11,7 @@ import { EntryModel } from './entry.model';
 })
 export class EntryService {
 
-  private apiPath = `api/categories`;
+  private apiPath = `api/entries`;
 
   constructor(
     private http: HttpClient
@@ -56,13 +56,13 @@ export class EntryService {
   }
 
   private jsonDataToEntries(jsonData: EntryModel[]): EntryModel[] {
-    const categories: EntryModel[] = [];
-    jsonData.forEach(element => categories.push(element as EntryModel));
-    return categories;
+    const entries: EntryModel[] = [];
+    jsonData.forEach(element => entries.push(Object.assign(new EntryModel, element)));
+    return entries;
   }
 
   private jsonDataToEntry(jsonData: EntryModel): EntryModel {
-    return jsonData as EntryModel;
+    return Object.assign(new EntryModel, jsonData);
   }
 
   private handError(error: any[]): Observable<any> {

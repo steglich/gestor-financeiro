@@ -10,7 +10,7 @@ export class EntryModel {
     public date?: string,
     public paid?: boolean,
     public categoryId?: number,
-    public categoryd?: CategoryModel
+    public category?: CategoryModel
   ) {}
 
   static types = {
